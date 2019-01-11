@@ -1,2 +1,1 @@
-Name: Grayland Lunn
-ONID: lunng
+This is my assignment 1 submission :D
