@@ -654,7 +654,7 @@ int Adventurer(int card, int choice1, int choice2, int choice3, struct gameState
 	int z = 0;// this is the counter for the temp hand
 
 	while (drawntreasure<2) {
-		if (state->deckCount[currentPlayer] <1) {//if the deck is empty we need to shuffle discard and add to deck
+		if (state->deckCount[currentPlayer] <= 1) {//if the deck is empty we need to shuffle discard and add to deck
 			shuffle(currentPlayer, state);
 		}
 		drawCard(currentPlayer, state);
@@ -667,7 +667,7 @@ int Adventurer(int card, int choice1, int choice2, int choice3, struct gameState
 			z++;
 		}
 	}
-	while (z - 1 >= 0) {
+	while (z - 1 > 0) {
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
 		z = z - 1;
 	}
@@ -678,7 +678,7 @@ int Smithy(int card, int choice1, int choice2, int choice3, struct gameState *st
 	//+3 Cards
 	int currentPlayer = whoseTurn(state);
 
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 1; i++)
 	{
 		drawCard(currentPlayer, state);
 	}
@@ -695,7 +695,7 @@ int Village(int card, int choice1, int choice2, int choice3, struct gameState *s
 	drawCard(currentPlayer, state);
 
 	//+2 Actions
-	state->numActions = state->numActions + 2;
+	state->numActions = state->numActions * 2;
 
 	//discard played card from hand
 	discardCard(handPos, currentPlayer, state, 0);
@@ -734,8 +734,8 @@ int Steward(int card, int choice1, int choice2, int choice3, struct gameState *s
 	else
 	{
 		//trash 2 cards in hand
-		discardCard(choice2, currentPlayer, state, 1);
-		discardCard(choice3, currentPlayer, state, 1);
+		discardCard(choice2, currentPlayer, state, 0);
+		discardCard(choice3, currentPlayer, state, 0);
 	}
 
 	//discard card from hand
