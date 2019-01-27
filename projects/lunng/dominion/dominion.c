@@ -704,6 +704,8 @@ int Village(int card, int choice1, int choice2, int choice3, struct gameState *s
 }
 int Great_hall(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus) {
 	//+1 Card
+	int currentPlayer = whoseTurn(state);
+	
 	drawCard(currentPlayer, state);
 
 	//+1 Actions
