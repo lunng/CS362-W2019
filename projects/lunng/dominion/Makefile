@@ -5,6 +5,7 @@ unittests: rngs.o dominion.o
 	gcc -o unittest2 -g  unittest2.c dominion.o rngs.o $(CFLAGS)
 	gcc -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
 	gcc -o unittest4 -g  unittest4.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest1 -g  cardtest1.c dominion.o rngs.o $(CFLAGS)
 
 
 

@@ -19,7 +19,7 @@
 int main() {
     int seed = 1000;
     int numPlayer = MAX_PLAYERS;
-    int i, card;
+    int i, j, card, numTreasure, numTreasurePrime, handSize, bonus;
     int k[10] = {adventurer, council_room, feast, gardens, mine
                , remodel, smithy, village, baron, great_hall};
     struct gameState G;
@@ -27,13 +27,47 @@ int main() {
 
     printf ("TESTING adventurer():\n");
 
-    memset(&G, 23, sizeof(struct gameState));   // clear the game state
-    initializeGame(numPlayer, hands, seed, &G); // initialize a new game
+    for(j = 0; j < 20; j++){
+        memset(&G, 23, sizeof(struct gameState));   // clear the game state
+        initializeGame(numPlayer, k, seed, &G); // initialize a new game
 
-    G.coins = 6;
-    G.buys = 2;
-    playCard(0,0,0,0,&G);
+
+        
+        G.whoseTurn = 0;
+        card = -1;
+        numTreasure = 0;
+        gainCard(adventurer,&G,2,0);
+        handSize = G.handCount[0];
+        for(i = 0; i < MAX_HAND; i++){
+            if(G.hand[0][i] == adventurer){
+                card = i;
+            }
+            if(G.hand[0][i] == copper || G.hand[0][i] == silver || G.hand[0][i] == gold){
+                numTreasure++;
+            }
+        }
+        if(card == -1){
+            printf("error card not found\n");
+            return -1;
+        }
+        bonus = 0;
+        cardEffect(adventurer, -1, -1, -1, &G, i, &bonus);
+        numTreasurePrime = 0;
+        for(i = 0; i < MAX_HAND; i++){
+            if(G.hand[0][i] == copper || G.hand[0][i] == silver || G.hand[0][i] == gold){
+                numTreasurePrime++;
+            }
+        }
+
+        printf("init: %d fin: %d\n", numTreasure ,numTreasurePrime);
+        printf("size1: %d size2: %d\n", handSize, G.handCount[0]);
+        asserttrue(handSize + 1 == G.handCount[0]);
+        asserttrue(numTreasurePrime == numTreasure + 2);
+    }
+
+
 
 
     return 0;
 }
+
