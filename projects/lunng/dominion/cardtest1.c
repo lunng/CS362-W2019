@@ -19,7 +19,7 @@
 int main() {
     int seed = 1000;
     int numPlayer = MAX_PLAYERS;
-    int i, j, card, numTreasure, numTreasurePrime, handSize, bonus;
+    int i, j, card, numTreasure, numTreasurePrime, handSize;
     int k[10] = {adventurer, council_room, feast, gardens, mine
                , remodel, smithy, village, baron, great_hall};
     struct gameState G;
@@ -50,8 +50,7 @@ int main() {
             printf("error card not found\n");
             return -1;
         }
-        bonus = 0;
-        cardEffect(adventurer, -1, -1, -1, &G, i, &bonus);
+        playCard(i, -1, -1, -1, &G);
         numTreasurePrime = 0;
         for(i = 0; i < MAX_HAND; i++){
             if(G.hand[0][i] == copper || G.hand[0][i] == silver || G.hand[0][i] == gold){

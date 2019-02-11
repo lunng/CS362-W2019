@@ -14,7 +14,7 @@
 // set NOISY_TEST to 0 to remove printfs from output
 #define NOISY_TEST 1
 #ifndef asserttrue
-#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY CnumPlayerOMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__); // asserttrue used from piazza jonah siekkman
+#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__); // asserttrue used from piazza jonah siekkman
 #endif
 int main() {
     int seed = 1000;

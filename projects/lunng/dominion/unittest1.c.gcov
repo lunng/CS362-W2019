@@ -1,0 +1,51 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:./unittest1.gcno
+        -:    0:Data:./unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* -----------------------------------------------------------------------
+        -:    2: * Gray Lunn
+        -:    3: * CS 362, Winter 2019
+        -:    4: * -----------------------------------------------------------------------
+        -:    5: */
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include <string.h>
+        -:   10:#include <stdio.h>
+        -:   11:#include <assert.h>
+        -:   12:#include "rngs.h"
+        -:   13:
+        -:   14:// set NOISY_TEST to 0 to remove printfs from output
+        -:   15:#define NOISY_TEST 1
+        -:   16:#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__); // asserttrue used from piazza jonah siekkman
+        -:   17:
+        1:   18:int main() {
+        1:   19:    int seed = 1000;
+        1:   20:    int numPlayer = MAX_PLAYERS;
+        -:   21:    int p;
+        1:   22:    int k[10] = {adventurer, council_room, feast, gardens, mine
+        -:   23:               , remodel, smithy, village, baron, great_hall};
+        -:   24:    struct gameState G;
+        -:   25:    // arrays of all coppers, silvers, and golds
+        -:   26:
+        1:   27:    printf ("TESTING whoseTurn():\n");
+        5:   28:    for (p = 0; p < numPlayer; p++)
+        -:   29:    {
+        -:   30:
+        -:   31:#if (NOISY_TEST == 1)
+        4:   32:                printf("Test player %d.\n", p);
+        -:   33:#endif
+        4:   34:                memset(&G, 23, sizeof(struct gameState));   // clear the game state
+        4:   35:                initializeGame(numPlayer, k, seed, &G); // initialize a new game
+        4:   36:                G.whoseTurn = p;
+        -:   37:#if (NOISY_TEST == 1)
+        4:   38:                asserttrue(whoseTurn(&G) == p); // check if the number of coins is correct
+        -:   39:#endif
+        -:   40:                
+        -:   41:    }
+        -:   42:
+        1:   43:    printf("All tests passed!\n");
+        -:   44:
+        1:   45:    return 0;
+        -:   46:}

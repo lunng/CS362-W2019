@@ -1,13 +1,5 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
-unittests: rngs.o dominion.o
-	gcc -o unittest1 -g  unittest1.c dominion.o rngs.o $(CFLAGS)
-	gcc -o unittest2 -g  unittest2.c dominion.o rngs.o $(CFLAGS)
-	gcc -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
-	gcc -o unittest4 -g  unittest4.c dominion.o rngs.o $(CFLAGS)
-	gcc -o cardtest1 -g  cardtest1.c dominion.o rngs.o $(CFLAGS)
-
-
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -41,6 +33,28 @@ runtests: testDrawCard
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
+
+unittestresults: unittests dominion.c unittestresults.out
+	echo "unittest1.c" >> unittestresults.out
+	./unittest1 >> unittestresults.out
+	echo "unittest2.c" >> unittestresults.out
+	./unittest2 >> unittestresults.out
+	echo "unittest3.c" >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	echo "unittest4.c" >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	echo "cardtest1.c" >> unittestresults.out
+	./cardtest1 >> unittestresults.out
+	gcov -c -b dominion.c >> unittestresults.out
+
+
+unittests: rngs.o dominion.o unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c
+	gcc -o unittest1 -g -fprofile-arcs -fpic -coverage unittest1.c dominion.o rngs.o $(CFLAGS)
+	gcc -o unittest2 -g -fprofile-arcs -fpic -coverage unittest2.c dominion.o rngs.o $(CFLAGS)
+	gcc -o unittest3 -g -fprofile-arcs -fpic -coverage unittest3.c dominion.o rngs.o $(CFLAGS)
+	gcc -o unittest4 -g -fprofile-arcs -fpic -coverage unittest4.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest1 -g -fprofile-arcs -fpic -coverage cardtest1.c dominion.o rngs.o $(CFLAGS)
+
 
 all: playdom player 
 
