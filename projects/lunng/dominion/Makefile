@@ -16,6 +16,12 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 randomtestAdventurer: randomtestAdventurer.c dominion.o rngs.o
 	gcc  -o randomtestAdventurer -g  randomtestAdventurer.c dominion.o rngs.o $(CFLAGS)
 
+randomtestGreatHall: randomtestcard1.c dominion.o rngs.o
+	gcc  -o randomtestGreatHall -g  randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtestVillage: randomtestcard2.c dominion.o rngs.o
+	gcc  -o randomtestVillage -g  randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
 badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
 
@@ -33,9 +39,17 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-runrandomtests: randomtestAdventurer
+runrandomtests: randomtestAdventurer randomtestGreatHall randomtestVillage
+	rm -f randomtestcard1.out randomtestcard2.out randomtestAdventurer.out 
+	rm -f dominion.c.gcovrandomtestcard2
+	./randomtestVillage
+	gcov -f -b dominion.c >> randomtestcard1.out
+	rm -f dominion.c.gcov
 	./randomtestAdventurer
-	gcov -f -b dominion.c >> randomtestresult.out
+	gcov -f -b dominion.c >> randomtestAdventurer.out
+	rm -f dominion.c.gcov
+	./randomtestGreatHall
+	gcov -f -b dominion.c >> randomtestcard2.out
 
 
 

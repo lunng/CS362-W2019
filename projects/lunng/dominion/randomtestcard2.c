@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------
  * Gray Lunn
  * CS 362, Winter 2019
- * Random test for the Adventurer() function
+ * Random test for the Great_hall() function
  * -----------------------------------------------------------------------
  */
 
@@ -51,14 +51,10 @@ int main() {
     // * 
     // ************************************************** //
 
-    for (n = 0; n < 2000; n++) {
-      	initializeGame(2, k, floor(Random()*INT_MAX), &G);
+    for (n = 0; n < 200000; n++) {
+        initializeGame(2, k, floor(Random()*INT_MAX), &G);
         p = floor(Random() * 2);
-        // add random cards
-        for(i = 0; i < (MAX_HAND - G.handCount[p])*Random(); i++){
-            G.hand[p][G.handCount[p]++] = k[(int)floor(Random()*10)];
-        }
-        checkCardAdventurer(p, &G);
+        checkCardVillage(p, &G);
     }
 
 
@@ -66,27 +62,27 @@ int main() {
 }
 
 
-int checkCardAdventurer(int p, struct gameState *post) {
+int checkCardVillage(int p, struct gameState *post) {
   struct gameState pre;
   int bonus = Random() * INT_MAX;
   int r;
 
-  post->hand[p][(post->handCount[p])++ - 1] = adventurer;
+  post->hand[p][(post->handCount[p])++ - 1] = village;
   memcpy (&pre, post, sizeof(struct gameState));
 
 
   //  printf ("drawCard PRE: p %d HC %d DeC %d DiC %d\n",
-  //	  p, pre.handCount[p], pre.deckCount[p], pre.discardCount[p]);
+  //    p, pre.handCount[p], pre.deckCount[p], pre.discardCount[p]);
     
-  r = Adventurer(adventurer, Random()*MAX_HAND, Random()*MAX_HAND, Random()*MAX_HAND, post, post->handCount[p] - 1, &bonus);
+  r = Village(village, Random()*MAX_HAND, Random()*MAX_HAND, Random()*MAX_HAND, post, post->handCount[p] - 1, &bonus);
 
   //printf ("drawCard POST: p %d HC %d DeC %d DiC %d\n",
   //      p, post->handCount[p], post->deckCount[p], post->discardCount[p]);
 
 
   asserttrue(r == 0, r, 0);
-  asserttrue(post->handCount[p] - 1 == pre.handCount[p], post->handCount[p] - 1, pre.handCount[p]);
-  asserttrue(post->numActions + 1 == pre.numActions, post->numActions + 1, pre.numActions);
+  asserttrue(post->handCount[p] + 1 == pre.handCount[p], post->handCount[p] + 1, pre.handCount[p]);
+  asserttrue(post->numActions - 2 == pre.numActions, post->numActions - 2, pre.numActions);
   asserttrue(post->handCount[p] >= 0, post->handCount[p], 0);
   asserttrue(post->deckCount[p] >= 0, post->deckCount[p], 0);
 
