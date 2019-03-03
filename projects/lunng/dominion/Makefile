@@ -1,16 +1,20 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
 rngs.o: rngs.h rngs.c
-	gcc -c rngs.c -g  $(CFLAGS)
+	gcc -c rngs.c -g rngs.o $(CFLAGS)
 
 dominion.o: dominion.h dominion.c rngs.o
 	gcc -c dominion.c -g  $(CFLAGS)
 
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
+
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
+
+randomtestAdventurer: randomtestAdventurer.c dominion.o rngs.o
+	gcc  -o randomtestAdventurer -g  randomtestAdventurer.c dominion.o rngs.o $(CFLAGS)
 
 badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
@@ -29,6 +33,8 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+runrandomtests: randomtestAdventurer
+	./randomtestAdventurer
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
