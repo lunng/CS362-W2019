@@ -1,7 +1,7 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
 rngs.o: rngs.h rngs.c
-	gcc -c rngs.c -g rngs.o $(CFLAGS)
+	gcc -c rngs.c -g $(CFLAGS)
 
 dominion.o: dominion.h dominion.c rngs.o
 	gcc -c dominion.c -g  $(CFLAGS)
@@ -35,6 +35,9 @@ runtests: testDrawCard
 
 runrandomtests: randomtestAdventurer
 	./randomtestAdventurer
+	gcov -f -b dominion.c >> randomtestresult.out
+
+
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
