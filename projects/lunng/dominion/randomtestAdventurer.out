@@ -29,9 +29,9 @@ Taken at least once:0.00% of 4
 Calls executed:0.00% of 6
 
 Function 'Great_hall'
-Lines executed:0.00% of 6
+Lines executed:100.00% of 6
 No branches
-Calls executed:0.00% of 3
+Calls executed:100.00% of 3
 
 Function 'Village'
 Lines executed:100.00% of 6
@@ -153,9 +153,9 @@ Taken at least once:75.00% of 4
 No calls
 
 File 'dominion.c'
-Lines executed:20.59% of 612
+Lines executed:21.57% of 612
 Branches executed:20.14% of 417
 Taken at least once:16.07% of 417
-Calls executed:13.00% of 100
+Calls executed:16.00% of 100
 Creating 'dominion.c.gcov'
 
